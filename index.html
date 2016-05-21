@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webapp</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<!--
+
+Watch the video for reference:
+https://drive.google.com/file/d/0B6ZIsommzsgVcG9ZcDZFaFVCaDA
+
+Conditions:
+- Do not change the HTML
+
+Implement:
+1. Fluid layout
+2. Dropdown menus
+3. Place Logo and Search box, with full width header
+
+-->
+
+<header>
+    <div class="layout-wrap">
+        <a href="#"><img src="src/logo-netcraft.svg" alt="netcraft"></a>
+        <form class="search-box" method="get" action="http://www.google.com">
+            <input type="search" name="q" placeholder="search">
+        </form>
+    </div>
+</header>
+<div class="container page-body">
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-1 notifications">
+        </div>
+    </div>
+    <nav class="row">
+        <div class="col-sm-4 nav-section">
+            <p>Select Reporting Platform</p>
+            <img class="nav-icon" src="src/action-report-new.png" alt="">
+            <div class="menu">
+                <div class="menu-hint">
+                    <p>Choose QS report</p>
+                    <div class="arrow"></div>
+                    <ul class="action-list">
+                        <li><a href="#">Corporate</a></li>
+                        <li><a href="#">Simple</a></li>
+                        <li><a href="#">Business</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-sm-4 nav-section">
+            <p>Select Dashboard</p>
+            <img class="nav-icon" src="src/action-report-top.png" alt="">
+            <div class="menu">
+                <div class="menu-hint">
+                    <p>Choose dashboard</p>
+                    <div class="arrow"></div>
+                    <ul class="action-list">
+                        <li><a href="#">Account Dashboard</a></li>
+                        <li><a href="#">Daily Huddle Dashboard</a></li>
+                        <li><a href="#">ADM Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 nav-section">
+            <p>Help &amp; Tutorials</p>
+            <img class="nav-icon" id="last-nav-icon" src="src/actions-help.png" alt="">
+            <div class="menu">
+                <div class="menu-hint">
+                    <p>Choose guide</p>
+                    <div class="arrow"></div>
+                    <ul class="action-list">
+                        <li><a href="#">Real Time</a></li>
+                        <li><a href="#">Past Data</a></li>
+                        <li><a href="#">Corporate Data</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-sm-3"><a class="col-sm-12 tabs" href="#quick-reports">Quick Reports</a></div>
+        <div class="col-sm-3"><a class="col-sm-12 tabs" href="">My Folders</a></div>
+        <div class="col-sm-3"><a class="col-sm-12 tabs" href="">My Team Folders</a></div>
+        <div class="col-sm-3"><a class="col-sm-12 tabs" href="">Public Folders</a></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-12" id="quick-reports">
+                <img class="settings-icon" src="src/settings.png" alt="">
+                <form class="work-box" action="">
+                    <div class="col-sm-12 input-report">
+                        <span>Report 01</span><span>Name</span><input type="text"><span>URL:</span><input type="text">
+                    </div>
+                    <div class="col-sm-12 input-report">
+                        <span>Report 01</span><span>Name</span><input type="text"><span>URL:</span><input type="text">
+                    </div>
+                    <div class="col-sm-12 input-report">
+                        <span>Report 01</span><span>Name</span><input type="text"><span>URL:</span><input type="text">
+                    </div>
+                    <div class="col-sm-1 col-sm-push-10">
+                        <input class="submit" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12 work-box" id="fmy-folders">
+            </div>
+            <div class="col-sm-12 work-box" id="my-team-folders">
+            </div>
+            <div class="col-sm-12 work-box" id="public-folders">
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>
