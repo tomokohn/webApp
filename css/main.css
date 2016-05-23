@@ -127,7 +127,7 @@ li a:hover {
 }
 
 .work-box {
-    height: 650px;
+    height: 350px;
     background: lightgray;
 }
 
@@ -144,6 +144,12 @@ li a:hover {
 .from-bg {
     background: white;
     padding: 10px;
+}
+.form-l {
+    padding-left: 50px;
+}
+.input-text {
+    width: 210px
 }
 .submit{
     color: white;
