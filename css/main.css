@@ -127,14 +127,17 @@ li a:hover {
 }
 
 .work-box {
-    height: 350px;
+    height: 500px;
     background: lightgray;
+    display: none;
 }
+
 
 .settings-icon{
     float: right;
-    margin-top: 10px;
+    margin: 10px 0 ;
     background-color: white;
+    padding: 5px;
 }
 .input-report {
     padding: 5px;
@@ -158,4 +161,8 @@ li a:hover {
 }
 .input-report span:nth-of-type(2+n) {
     padding-left: 60px;
+}
+iframe  {
+    width: 100%;
+    height: 400px;
 }
