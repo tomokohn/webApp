@@ -146,6 +146,7 @@ li a:hover {
 .from-bg {
     background: white;
     padding: 10px;
+    margin-top: 30px;
 }
 .form-l {
     padding-left: 50px;
@@ -164,4 +165,7 @@ li a:hover {
 iframe  {
     width: 100%;
     height: 400px;
+}
+.display-no {
+    display: none;
 }

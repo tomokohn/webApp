@@ -63,7 +63,7 @@
                 }
         }
         validEmpty();
-        input.change( function(){
+        input.keyup( function(){
             validEmpty();
             // check url in pair
             for (var i=1; i<=5; i+=2){
@@ -109,31 +109,54 @@
     // sets drop down selector
     var dropDown = function (report) {
         var select = $('<select>')
-            .css('margin','10px');
+            .css('margin','20px'),
+            iFrame = $('<iframe>');
         for (var i=1; i<=3; i++){
             var repNum = report +'Report' +i+ 'Name',
+                repNmUrl = report +'Report' +i+ 'Url',
                 opt = $('<option>')
-                    .attr('value',report)
+                    .attr('value',repNmUrl)
                     .append(dataObj[report].inputNames[repNum]);
             if (dataObj[report].inputNames[repNum] !== ''){
                 $(select).append(opt);
             }
-
+        $(iFrame).attr('src',dataObj[report].inputUrls[repNmUrl]);
         }
-        $('#quick-reports').append(select);
+        // append to the current form
+        if (report === 'quickReports'){
+            $('#quick-reports').append(select);
+            $('#quick-reports').append(iFrame);
+        } else {
+            $('#my-team-folders').append(select);
+        }
+
     }
+
+    // handles the iFrame append and selection
+
 
 
     // handle form submission
     $('form').submit(function(e) {
-        validForm(e.target);
-        console.log(e.target);
+        console.log($(e.target).data('d'));
         dataIn(e.target);
         console.log(dataObj);
         e.preventDefault();
-        $('.from-bg').hide(500);
-        dropDown('quickReports');
-    } )
+        $('.from-bg').toggleClass('display-no');
+        $('.settings-icon').toggleClass('display-no');
+        dropDown($(e.target).data('d'));
+    } );
+
+    // shows the form on settings click
+    $('.settings-icon').click(function (e) {
+        if ($('.from-bg').hasClass('display-no')) {
+            $('select').remove();
+            $('.from-bg').toggleClass('display-no');
+            $('.settings-icon').toggleClass('display-no');
+            console.log("setings");
+        }
+
+    });
 
 
 
