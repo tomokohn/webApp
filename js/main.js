@@ -90,8 +90,13 @@
     // add info to dataObj
     // @param1 from_name
     // @param2 dataObj key name
-    var dataIn = function(form,place){
+    var dataIn = function(form){
         var input = $(form).find('input');
+        if ($(form).attr('id') === 'quick-reports-form') {
+            var place = 'quickReports';
+        } else {
+            var place = 'myTeamFolders';
+        }
         for(var i=0;i<=4; i+=2){
             var data= $(input[i]).data('d');
             dataObj[place].inputNames[data] = $(input[i]).val();
@@ -101,17 +106,33 @@
             dataObj[place].inputUrls[data] = $(input[i]).val();
         }
     }
-    // sets dropdown selector
+    // sets drop down selector
+    var dropDown = function (report) {
+        var select = $('<select>')
+            .css('margin','10px');
+        for (var i=1; i<=3; i++){
+            var repNum = report +'Report' +i+ 'Name',
+                opt = $('<option>')
+                    .attr('value',report)
+                    .append(dataObj[report].inputNames[repNum]);
+            if (dataObj[report].inputNames[repNum] !== ''){
+                $(select).append(opt);
+            }
+
+        }
+        $('#quick-reports').append(select);
+    }
 
 
-
-    // handle form submision
+    // handle form submission
     $('form').submit(function(e) {
         validForm(e.target);
         console.log(e.target);
-        dataIn(e.target,'quickReports');
+        dataIn(e.target);
         console.log(dataObj);
         e.preventDefault();
+        $('.from-bg').hide(500);
+        dropDown('quickReports');
     } )
 
 
