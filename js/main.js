@@ -3,9 +3,9 @@
  */
 
 
-(function(){
+
 // the object that receives all the data
-    var dataObj ={
+    var dataObj = {
         quickReports: {
             inputNames: {
                 quickReportsReport1Name: "",
@@ -105,60 +105,107 @@
             var data= $(input[i]).data('d');
             dataObj[place].inputUrls[data] = $(input[i]).val();
         }
+        // refresh the localstorage json
+        (function (){
+            localStorage.clear();
+            localStorage.setItem('dataObj', JSON.stringify(dataObj));
+        })();
+
     }
+    // pull from localstorage and apply to forms
+    var dataOut = function (form) {
+        var dataObjSto = JSON.parse(localStorage.getItem('dataObj')),
+            input = $(form).find('input');
+        if ($(form).attr('id') === 'quick-reports-form') {
+            var place = 'quickReports';
+        } else {
+            var place = 'myTeamFolders';
+        }
+
+        for(var i=0;i<=4; i+=2){
+            var data= $(input[i]).data('d');
+             $(input[i]).val(dataObjSto[place].inputNames[data]);
+        }
+        for(var i=1;i<=5; i+=2){
+            var data= $(input[i]).data('d');
+             $(input[i]).val(dataObjSto[place].inputUrls[data]);
+        }
+        console.log(localStorage);
+        console.log(dataObjSto);
+    }
+
+
+
     // sets drop down selector
     var dropDown = function (report) {
-        var select = $('<select>')
-            .css('margin','20px'),
-            iFrame = $('<iframe>');
+        var select = $('<select>');
         for (var i=1; i<=3; i++){
             var repNum = report +'Report' +i+ 'Name',
-                repNmUrl = report +'Report' +i+ 'Url',
+                repNmUrl = dataObj[report].inputUrls[report +'Report' +i+ 'Url'],
                 opt = $('<option>')
                     .attr('value',repNmUrl)
                     .append(dataObj[report].inputNames[repNum]);
             if (dataObj[report].inputNames[repNum] !== ''){
                 $(select).append(opt);
+
+        }
+            // append to the current form
+            if (report === 'quickReports'){
+                $('#quick-reports').append(select);
+                $('#quickSetting').attr('href',$(select).find('option').first().val());
+            } else {
+                $('#my-team-folders').append(select);
+                $('#myTeamSeting').attr('href',$(select).find('option').first().val());
             }
-        $(iFrame).attr('src',dataObj[report].inputUrls[repNmUrl]);
         }
-        // append to the current form
-        if (report === 'quickReports'){
-            $('#quick-reports').append(select);
-            $('#quick-reports').append(iFrame);
-        } else {
-            $('#my-team-folders').append(select);
-        }
+
 
     }
-
     // handles the iFrame append and selection
-
+    var ifSelect = function (report) {
+        var iFrame = $('<iframe>');
+        $(iFrame).attr('src',$('select option:first-child').val());
+        if (report === 'quickReports'){
+            $('#quick-reports').append(iFrame);
+            $('select').change(function(){
+                $(iFrame).attr('src',$(this).val());
+                $('#quickSetting').attr('href',$(this).val());
+            });
+        } else {
+            $('#my-team-folders').append(iFrame);
+            $('select').change(function(){
+                $(iFrame).attr('src',$(this).val());
+                $('#myTeamSeting').attr('href',$(this).val());
+            });
+        }
+    }
+    // activate localstorage
+$( document ).ready(function() {
+    dataOut($("#quick-reports-form"));
+    dataOut($("#my-team-folders-form"));
+})
 
 
     // handle form submission
     $('form').submit(function(e) {
-        console.log($(e.target).data('d'));
+        // console.log($(e.target).data('d'));
         dataIn(e.target);
-        console.log(dataObj);
+        // console.log(dataObj);
         e.preventDefault();
-        $('.from-bg').toggleClass('display-no');
-        $('.settings-icon').toggleClass('display-no');
+        $(e.target).parent().toggleClass('display-no');
+        $(e.target).parent().parent().find('.settings-icon').toggleClass('display-no');
         dropDown($(e.target).data('d'));
+        ifSelect($(e.target).data('d'));
     } );
 
     // shows the form on settings click
     $('.settings-icon').click(function (e) {
-        if ($('.from-bg').hasClass('display-no')) {
-            $('select').remove();
+            $(e.target).parent().find('select').remove();
+            $(e.target).parent().find('iframe').remove();
             $('.from-bg').toggleClass('display-no');
-            $('.settings-icon').toggleClass('display-no');
-            console.log("setings");
-        }
-
-    });
+            $(e.target).toggleClass('display-no');
+        });
 
 
 
 
-})();
