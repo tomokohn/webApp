@@ -50,7 +50,7 @@
         function validEmpty () {
             var empty = 0;
             for (var i=0; i<=5; i++){
-                if ($(input[i]).val() !== ('')) {
+                if ($(input[i]).val() !== '') {
                     empty = 1;
                 }
             }
@@ -63,7 +63,7 @@
                 }
         }
         validEmpty();
-        input.keyup( function(){
+        input.change( function(){
             validEmpty();
             // check url in pair
             for (var i=1; i<=5; i+=2){
@@ -86,7 +86,6 @@
 
     };
 
-    validForm('#quick-reports');
     // add info to dataObj
     // @param1 from_name
     // @param2 dataObj key name
@@ -164,14 +163,16 @@
     // handles the iFrame append and selection
     var ifSelect = function (report) {
         var iFrame = $('<iframe>');
-        $(iFrame).attr('src',$('select option:first-child').val());
+
         if (report === 'quickReports'){
+            $(iFrame).attr('src',$('#quick-reports select option:first-child').val());
             $('#quick-reports').append(iFrame);
             $('select').change(function(){
                 $(iFrame).attr('src',$(this).val());
                 $('#quickSetting').attr('href',$(this).val());
             });
         } else {
+            $(iFrame).attr('src',$('#my-team-folders select option:first-child').val());
             $('#my-team-folders').append(iFrame);
             $('select').change(function(){
                 $(iFrame).attr('src',$(this).val());
@@ -183,27 +184,32 @@
 $( document ).ready(function() {
     dataOut($("#quick-reports-form"));
     dataOut($("#my-team-folders-form"));
+    validForm('#quick-reports');
+    validForm('#my-team-folders');
 })
 
 
     // handle form submission
     $('form').submit(function(e) {
+        e.preventDefault();
         // console.log($(e.target).data('d'));
         dataIn(e.target);
         // console.log(dataObj);
-        e.preventDefault();
+        // validForm('#quick-reports');
+
         $(e.target).parent().toggleClass('display-no');
-        $(e.target).parent().parent().find('.settings-icon').toggleClass('display-no');
+        $(e.target).parent().parent().find('.settings-icons').toggleClass('display-no');
         dropDown($(e.target).data('d'));
         ifSelect($(e.target).data('d'));
     } );
 
     // shows the form on settings click
     $('.settings-icon').click(function (e) {
-            $(e.target).parent().find('select').remove();
-            $(e.target).parent().find('iframe').remove();
-            $('.from-bg').toggleClass('display-no');
-            $(e.target).toggleClass('display-no');
+        $(e.target).parent().parent().find('select').remove();
+        $(e.target).parent().parent().find('iframe').remove();
+        $(e.target).parent().toggleClass('display-no');
+        $(e.target).parent().parent().find('.from-bg').toggleClass('display-no');
+
         });
 
 
