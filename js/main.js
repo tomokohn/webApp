@@ -46,25 +46,7 @@
 // input validation function - add required to pair input
     var validForm = function (tab) {
        var input = $(tab).find('input');
-        // empty validation
-        function validEmpty () {
-            var empty = 0;
-            for (var i=0; i<=5; i++){
-                if ($(input[i]).val() !== '') {
-                    empty = 1;
-                }
-            }
-                if (empty === 0 ){
-                    $(input[0]).prop('required',true);
-                }  else {
-                    $(input).each(function(){
-                        $(this).prop('required',false)
-                    });
-                }
-        }
-        validEmpty();
         input.change( function(){
-            validEmpty();
             // check url in pair
             for (var i=1; i<=5; i+=2){
                 if ($(input[i-1]).val() !== ('')) {
@@ -81,10 +63,40 @@
                     $(input[i]).prop('required',false);
                 }
             }
-
+            // empty validation
+            /*var empty = 0;
+            for (var i=0; i<=5; i++){
+                if ($(input[i]).val() !== '') {
+                    empty = 1;
+                }
+            }
+            if (empty === 0 ){
+                $(input[0]).prop('required',true);
+            }  else {
+                $(input).each(function(){
+                    $(this).prop('required',false)
+                });
+            }*/
         });
 
     };
+// empty validation
+    var validEmpty = function (tab) {
+        var input = $(tab).find('input');
+        var empty = 0;
+        for (var i=0; i<=5; i++){
+            if ($(input[i]).val() !== '') {
+                empty = 1;
+            }
+        }
+        if (empty === 0 ){
+            $(input[0]).prop('required',true);
+        }  else {
+            $(input).each(function(){
+                $(this).prop('required',false)
+            });
+        }
+    }
 
     // add info to dataObj
     // @param1 from_name
@@ -113,7 +125,7 @@
     }
     // pull from localstorage and apply to forms
     var dataOut = function (form) {
-        var dataObjSto = JSON.parse(localStorage.getItem('dataObj')),
+        var dataObjSto = JSON.parse(localStorage.getItem('dataObj')) || dataObj,
             input = $(form).find('input');
         if ($(form).attr('id') === 'quick-reports-form') {
             var place = 'quickReports';
@@ -180,7 +192,7 @@
             });
         }
     }
-    // activate localstorage
+    // activate localstorage and validations
 $( document ).ready(function() {
     dataOut($("#quick-reports-form"));
     dataOut($("#my-team-folders-form"));
@@ -192,11 +204,7 @@ $( document ).ready(function() {
     // handle form submission
     $('form').submit(function(e) {
         e.preventDefault();
-        // console.log($(e.target).data('d'));
         dataIn(e.target);
-        // console.log(dataObj);
-        // validForm('#quick-reports');
-
         $(e.target).parent().toggleClass('display-no');
         $(e.target).parent().parent().find('.settings-icons').toggleClass('display-no');
         dropDown($(e.target).data('d'));
