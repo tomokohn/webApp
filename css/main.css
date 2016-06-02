@@ -15,7 +15,6 @@ header {
 }
 .page-body{
     background: darkgrey;
-    height: 100vh;
     padding-top: 1px;
 }
 header a {
@@ -63,7 +62,7 @@ header form {
     background: lightgray;
     /*padding: 3px;*/
 
-    /*   position: relative; */
+    position: relative;
 }
 .menu-hint p {
     margin: 7px 5px  7px 20px;
@@ -98,6 +97,9 @@ header form {
 
 .menu-hint:hover .action-list {
     display: block;
+}
+.menu-hint:hover .arrow {
+    transform: rotate(-90deg);
 }
 
 .action-list li {
@@ -157,7 +159,7 @@ li a:hover {
     padding-left: 50px;
 }
 .input-text {
-    width: 210px
+    width: 30%
 }
 .submit{
     color: white;
@@ -178,4 +180,8 @@ iframe  {
 }
 .display-no {
     display: none;
+}
+.must {
+    background-color: lightgoldenrodyellow;
+    border-color: lightblue;
 }

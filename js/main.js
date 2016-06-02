@@ -52,7 +52,8 @@
                 if ($(input[i-1]).val() !== ('')) {
                     $(input[i]).prop('required',true);
                 } else {
-                    $(input[i]).prop('required',false);
+                    $(input[i]).prop('required',false).removeClass('must');
+
                 }
             }
             //check name in pair
@@ -63,38 +64,23 @@
                     $(input[i]).prop('required',false);
                 }
             }
-            // empty validation
-            /*var empty = 0;
-            for (var i=0; i<=5; i++){
-                if ($(input[i]).val() !== '') {
-                    empty = 1;
-                }
-            }
-            if (empty === 0 ){
-                $(input[0]).prop('required',true);
-            }  else {
-                $(input).each(function(){
-                    $(this).prop('required',false)
-                });
-            }*/
         });
-
     };
 // empty validation
-    var validEmpty = function (tab) {
-        var input = $(tab).find('input');
+
+    var validEmptyForm = function(form){
+        var input = $(form).find('input');
         var empty = 0;
         for (var i=0; i<=5; i++){
             if ($(input[i]).val() !== '') {
                 empty = 1;
             }
         }
-        if (empty === 0 ){
-            $(input[0]).prop('required',true);
-        }  else {
-            $(input).each(function(){
-                $(this).prop('required',false)
-            });
+        if (empty === 1 ) {
+            return true;
+        } else {
+            $(input[0]).addClass('must');
+            return false;
         }
     }
 
@@ -204,11 +190,14 @@ $( document ).ready(function() {
     // handle form submission
     $('form').submit(function(e) {
         e.preventDefault();
-        dataIn(e.target);
-        $(e.target).parent().toggleClass('display-no');
-        $(e.target).parent().parent().find('.settings-icons').toggleClass('display-no');
-        dropDown($(e.target).data('d'));
-        ifSelect($(e.target).data('d'));
+        if (validEmptyForm(e.target)) {
+            $(e.target).find('input:nth-of-type(1)').removeClass('must');
+            dataIn(e.target);
+            $(e.target).parent().toggleClass('display-no');
+            $(e.target).parent().parent().find('.settings-icons').toggleClass('display-no');
+            dropDown($(e.target).data('d'));
+            ifSelect($(e.target).data('d'));
+        }
     } );
 
     // shows the form on settings click
