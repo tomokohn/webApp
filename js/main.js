@@ -107,7 +107,6 @@
             localStorage.clear();
             localStorage.setItem('dataObj', JSON.stringify(dataObj));
         })();
-
     }
     // pull from localstorage and apply to forms
     var dataOut = function (form) {
@@ -127,11 +126,7 @@
             var data= $(input[i]).data('d');
              $(input[i]).val(dataObjSto[place].inputUrls[data]);
         }
-        console.log(localStorage);
-        console.log(dataObjSto);
     }
-
-
 
     // sets drop down selector
     var dropDown = function (report) {
@@ -186,10 +181,18 @@ $( document ).ready(function() {
     validForm('#my-team-folders');
 })
 
+    //handle search from
+    var search = function (info) {
+     
+    }
 
     // handle form submission
     $('form').submit(function(e) {
         e.preventDefault();
+        if ($(e.target).hasClass('search-box')) {
+            search($(e.target).find('input').val());
+            return ;
+        }
         if (validEmptyForm(e.target)) {
             $(e.target).find('input:nth-of-type(1)').removeClass('must');
             dataIn(e.target);

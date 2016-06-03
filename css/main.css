@@ -135,7 +135,7 @@ li a:hover {
 }
 
 
-.settings-icon{
+.settings-icon,.settings-icons{
     float: right;
     margin: 10px 0 ;
     padding: 5px;
